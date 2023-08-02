@@ -1,1 +1,2 @@
-cat кот, кошка
+cat koska
+cat kokoko

@@ -6,10 +6,9 @@
 #include <algorithm>
 #include "DictionaryProcessor.h"
 
-using namespace std;
 
 
-string StringToLower(string& s)
+std::string StringToLower(std::string& s)
 {
     transform(s.begin(), s.end(), s.begin(),
         [](unsigned char c) { return tolower(c); }
@@ -17,12 +16,12 @@ string StringToLower(string& s)
     return s;
 }
 
-void LoadWordWithTranslationToDictionary(Dictionary& dictionary, string& line)
+void LoadWordWithTranslationToDictionary(Dictionary& dictionary, std::string& line)
 {
-    string key;
-    string value;
+    std::string key;
+    std::string value;
     line = StringToLower(line);
-    istringstream stream(line);
+    std::istringstream stream(line);
     char temp;
 
     stream >> key;
@@ -38,17 +37,17 @@ void LoadWordWithTranslationToDictionary(Dictionary& dictionary, string& line)
     dictionary[key] = value;
 }
 
-void LoadDictionary(Dictionary& dictionary, const string& fileName)
+void LoadDictionary(Dictionary& dictionary, const std::string& fileName)
 {
-    ifstream file(fileName);
-    string line;
-    while (getline(file, line))
+    std::ifstream file(fileName);
+    std::string line;
+    while (std::getline(file, line))
     {
         LoadWordWithTranslationToDictionary(dictionary, line);
     }
 }
 
-bool GetDictionary(int argc, char* argv[], Dictionary& dictionary, string& fileName)
+bool GetDictionary(int argc, char* argv[], Dictionary& dictionary, std::string& fileName)
 {
     if (argc == 1)
     {
@@ -60,7 +59,7 @@ bool GetDictionary(int argc, char* argv[], Dictionary& dictionary, string& fileN
     }
     else
     {
-        cout << "Invalid arguments count" << endl;
+        std::cout << "Invalid arguments count" << std::endl;
         return false;
     }
 
@@ -68,12 +67,12 @@ bool GetDictionary(int argc, char* argv[], Dictionary& dictionary, string& fileN
     return true;
 }
 
-void SaveDictionary(Dictionary& dictionary, string& fileName)
+void SaveDictionary(Dictionary& dictionary, std::string& fileName)
 {
-    ofstream file(fileName);
+    std::ofstream file(fileName);
     for (auto const& item : dictionary)
     {
-        file << item.first << " " << item.second << endl;
+        file << item.first << " " << item.second << std::endl;
     }
 }
 

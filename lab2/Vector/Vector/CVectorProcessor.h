@@ -6,5 +6,6 @@
 #include <algorithm>
 
 bool ParseFloatsToVector(std::istream& input, std::vector<float>& v);
-bool MuitiplyByMin(std::vector<float>& v);
+bool MultiplyByMin(std::vector<float>& v);
+void SortVector(std::vector<float>& v);
 void PrintVectorOfFloats(const std::vector<float>& v);

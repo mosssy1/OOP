@@ -24,7 +24,7 @@ double CCone::GetVolume() const
 
 std::string CCone::GetType() const
 {
-	return "Конус";
+	return "Cone";
 }
 
 CCone::~CCone()
@@ -33,6 +33,6 @@ CCone::~CCone()
 
 void CCone::AppendProperties(std::ostringstream& strm) const
 {
-	strm << "\tБазовый радиус конуса: " << GetBaseRadius() << std::endl
-		 << "\tВысота конуса: " << GetHeight() << std::endl;
+	strm << "\tBase radius of cone: " << GetBaseRadius() << std::endl
+		 << "\tHeight of cone: " << GetHeight() << std::endl;
 }

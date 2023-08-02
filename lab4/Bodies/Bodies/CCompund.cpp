@@ -21,7 +21,7 @@ double CCompound::GetDensity() const
 
 std::string CCompound::GetType() const
 {
-	return "Составное тело";
+	return "Compound body";
 }
 
 size_t CCompound::GetSize() const
@@ -89,7 +89,7 @@ CCompound::~CCompound()
 
 void CCompound::AppendProperties(std::ostringstream& output) const
 {
-	output << "\tСостоит из: ";
+	output << "\tConsist of: ";
 	for (auto& ptr : m_children)
 	{
 		std::string type = ptr->GetType();

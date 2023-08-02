@@ -10,6 +10,7 @@ TEST_CASE("Load word to dictionary")
 	LoadWordWithTranslationToDictionary(dictionary, line);
 	REQUIRE(dictionary.find("cat") != dictionary.end());
 	REQUIRE(dictionary["cat"] == "кот, кошка");
+	std::cout << dictionary["cat"];
 
 }
 

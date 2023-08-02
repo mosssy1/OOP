@@ -7,14 +7,13 @@
 class CRational
 {
 public:
-	// Конструирует рациональное число, равное нулю (0/1)
 	CRational();
-	CRational(int value);// Конструирует рациональное число, равное value (value/1)
-	CRational(int numerator, int denominator);// Конструирует рациональное число, равное numerator/denominator
-	int GetNumerator() const;// Возвращает числитель
-	int GetDenominator() const;// Возвращает знаменатель (натуральное число)
-	double ToDouble() const;// Возвращает отношение числителя и знаменателя в виде числа double
-	std::pair<int, CRational> ToCompoundFraction() const; //// Возвращает представление рационального числа в виде смешанной дроби
+	CRational(int value);
+	CRational(int numerator, int denominator);
+	int GetNumerator() const;
+	int GetDenominator() const;
+	double ToDouble() const;
+	std::pair<int, CRational> ToCompoundFraction() const;
 	CRational operator+() const;
 	CRational operator-() const;
 

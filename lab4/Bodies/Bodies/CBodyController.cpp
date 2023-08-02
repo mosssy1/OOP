@@ -11,17 +11,17 @@ CBodyController::CBodyController(std::istream& input, std::ostream& output, std:
 
 Result CBodyController::Interpret()
 {
-	m_output << "Команды:\n"
-			 << "1 - Добавить тело\n"
-			 << "2 - Найти тело с наибольшей массой\n"
-			 << "3 - Найти тело которое будет легче всего весить в воде\n"
-			 << "4 - Вывести информацию обо всех телах\n"
-			 << "5 - Выйти из программы\n";
+	m_output << "Commands:\n"
+			 << "1 - Add body\n"
+			 << "2 - Find body of max mass\n"
+			 << "3 - Find the body that will weigh the lightest in water\n"
+			 << "4 - Get info about all bodies\n"
+			 << "5 - Exit from programm\n";
 	int command;
 	ResultValidation resultValidation = ValidationValue();
 	if (resultValidation.status == Status::ERROR_)
 	{
-		return { Status::ERROR_, "Ошибка, такой команды не существует" };
+		return { Status::ERROR_, "Error, no such command exists" };
 	}
 	else
 	{
@@ -48,7 +48,7 @@ Result CBodyController::ExecuteCommand(int command)
 	case 5:
 		return { Status::EXIT };
 	default:
-		return { Status::ERROR_, "Ошибка, такой команды не существует" };
+		return { Status::ERROR_, "Error, no such command exists" };
 	}
 }
 
@@ -59,14 +59,14 @@ double CBodyController::ReadValue() const
 	{
 		m_input.clear();
 		m_input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		m_output << "Ошибка, введите число: ";
+		m_output << "Error, print number: ";
 	}
 	return value;
 }
 
 std::shared_ptr<CSphere> CBodyController::CreateSphere()
 {
-	m_output << "Введите радиус сферы и плотность\n";
+	m_output << "Enter sphere radius and density\n";
 	double radius = ReadValue();
 	double density = ReadValue();
 	std::shared_ptr<CSphere> sphere = std::make_shared<CSphere>(radius, density);
@@ -75,7 +75,7 @@ std::shared_ptr<CSphere> CBodyController::CreateSphere()
 
 std::shared_ptr<CParallelepiped> CBodyController::CreateParallelepiped()
 {
-	m_output << "Введите ширину, длину, высоту и плотность параллелепипеда\n";
+	m_output << "Enter the width, length, height and density of the parallelepiped\n";
 	double width = ReadValue();
 	double depth = ReadValue();
 	double height = ReadValue();
@@ -86,7 +86,7 @@ std::shared_ptr<CParallelepiped> CBodyController::CreateParallelepiped()
 
 std::shared_ptr<CCone> CBodyController::CreateCone()
 {
-	m_output << "Введите базовый радиус, высоту и плотность конуса\n";
+	m_output << "Enter the base radius, height and density of the cone\n";
 	double baseRadius = ReadValue();
 	double height = ReadValue();
 	double density = ReadValue();
@@ -96,7 +96,7 @@ std::shared_ptr<CCone> CBodyController::CreateCone()
 
 std::shared_ptr<CCylinder> CBodyController::CreateCylinder()
 {
-	m_output << "Введите базовый радиус, высоту и плотность цилиндра\n";
+	m_output << "Enter the base radius, height and density of the cylinder\n";
 	double baseRadius = ReadValue();
 	double height = ReadValue();
 	double density = ReadValue();
@@ -106,7 +106,7 @@ std::shared_ptr<CCylinder> CBodyController::CreateCylinder()
 
 Result CBodyController::AddBody()
 {
-	m_output << "\nВведите тип тела \n1 - Сфера\n2 - Параллелепипед\n3 - Конус\n4 - Цилиндр\n5 - Добавить составное тело\n6 - Выйти в главное меню\n";
+	m_output << "\nEnter type of body \n1 - Sphere\n2 - Parallelepiped\n3 - Cone\n4 - Cylinder\n5 - Enter compound body\n6 - Go to main menu\n";
 	if (m_input.eof())
 	{
 		return { Status::EXIT };
@@ -115,7 +115,7 @@ Result CBodyController::AddBody()
 	ResultValidation resultValidation = ValidationValue();
 	if (resultValidation.status == Status::ERROR_)
 	{
-		return { Status::ERROR_, "Ошибка, такой команды не существует" };
+		return { Status::ERROR_, "Error, no such command exists" };
 	}
 	else
 	{
@@ -151,14 +151,14 @@ Result CBodyController::AddBody()
 	case 6:
 		return { Status::UP };
 	default:
-		return { Status::ERROR_, "Ошибка, такой команды не существует" };
+		return { Status::ERROR_, "Error, no such command exists" };
 	}
 	return { Status::OK };
 }
 
 Result CBodyController::AddBodyCompound(std::shared_ptr<CCompound>& compound) 
 {
-	m_output << "\nВведите тип тела \n1 - Сфера\n2 - Параллелепипед\n3 - Конус\n4 - Цилиндр\n5 - Добавить составное тело\n6 - Подняться на уровень выше\n";
+	m_output << "\nEnter type of body \n1 - Sphere\n2 - Parallelepiped\n3 - Cone\n4 - Cylinder\n5 - Enter compound body\n6 - Go to up level\n";
 	if (m_input.eof())
 	{
 		return { Status::EXIT };
@@ -167,7 +167,7 @@ Result CBodyController::AddBodyCompound(std::shared_ptr<CCompound>& compound)
 	ResultValidation resultValidation = ValidationValue();
 	if (resultValidation.status == Status::ERROR_)
 	{
-		return { Status::ERROR_, "Ошибка, такой команды не существует" };
+		return { Status::ERROR_, "Error, no such command exists" };
 	}
 	else
 	{
@@ -203,7 +203,7 @@ Result CBodyController::AddBodyCompound(std::shared_ptr<CCompound>& compound)
 	case 6:
 		return { Status::UP };
 	default:
-		return { Status::ERROR_, "Ошибка, такой команды не существует" };
+		return { Status::ERROR_, "Error, no such command exists" };
 	}
 	return { Status::OK };
 }
@@ -248,7 +248,7 @@ Result CBodyController::FindBodyWithMaxMass() const
 {
 	if (m_bodies.empty())
 	{
-		return { Status::ERROR_, "Нет тел" };
+		return { Status::ERROR_, "no bodies" };
 	}
 	double maxMass = -DBL_MAX , currentMass = 0;
 	std::shared_ptr<CBody> maxMassBody;
@@ -269,7 +269,7 @@ Result CBodyController::FindBodyWithMinWeightInWater() const
 {
 	if (m_bodies.empty())
 	{
-		return { Status::ERROR_, "Нет тел" };
+		return { Status::ERROR_, "no bodies" };
 	}
 	double minWeight = DBL_MAX, currentWeight = 0;
 	std::shared_ptr<CBody> minWeightBody;
@@ -292,7 +292,7 @@ Result CBodyController::PrintAllBodies() const
 {
 	if (m_bodies.empty())
 	{
-		return { Status::ERROR_, "Нет тел" };
+		return { Status::ERROR_, "no bodies" };
 	}
 	std::ostringstream strm;
 	for (int i = 0; i < m_bodies.size(); i++)

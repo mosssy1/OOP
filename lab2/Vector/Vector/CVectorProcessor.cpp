@@ -4,17 +4,16 @@
 #include <vector>
 #include <algorithm>
 
-using namespace std;
 
-void PrintVectorOfFloats(const vector<float>& v)
+void PrintVectorOfFloats(const std::vector<float>& v)
 {
 	std::for_each(v.cbegin(), v.cend(), [](const float& elem)
 		{
-			cout << elem << " ";
+			std::cout << elem << " ";
 		});
 }
 
-bool ParseFloatsToVector(istream& input, vector<float>& v)
+bool ParseFloatsToVector(std::istream& input, std::vector<float>& v)
 {
 	float value = 0.f;
 
@@ -28,22 +27,25 @@ bool ParseFloatsToVector(istream& input, vector<float>& v)
 		return false;
 	}
 
-	return v.size() > 0 ? true : false;
+	return v.size() > 0;
+}
+
+void SortVector(std::vector<float>& v)
+{
+	std::sort(v.begin(), v.end());
 }
 
 
-bool MuitiplyByMin(vector<float>& v)
+bool MultiplyByMin(std::vector<float>& v)
 {
 
-	vector<float> vCopy = v;
+	std::vector<float> vCopy = v;
 	float minElement = *std::min_element(vCopy.begin(), vCopy.end());
 
-	for (float& element : v) {
-		element *= minElement;
-	}
-	std::sort(v.begin(), v.end());
+	std::transform(v.begin(), v.end(), v.begin(),
+		[minElement](float& element) { return element * minElement; });
+
 	return true;
 }
 
-//Каждый элемент массива должен быть умножен на минимальный элемент исходного массива
-//Подсказка : используйте алгоритм std::min_element.
+

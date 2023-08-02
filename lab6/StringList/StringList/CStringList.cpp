@@ -37,7 +37,6 @@ CStringList::CStringList(const CStringList& other)
 		}
 	}
 }
-//выше такая же хуйня, не знаю для чего
 CStringList::CStringList(CStringList&& other)
 	: m_head(other.m_head)
 	, m_tail(other.m_tail)
@@ -48,7 +47,7 @@ CStringList::CStringList(CStringList&& other)
 	other.m_tail = nullptr;
 	other.m_size = 0;
 
-	try // ������ ������? �� ����� clear
+	try
 	{
 		other.m_head = new CStringListNode();
 		other.m_tail = new CStringListNode();

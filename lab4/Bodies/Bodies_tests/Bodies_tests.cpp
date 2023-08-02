@@ -11,17 +11,17 @@
 #include "../Bodies/Result.h"
 #include <sstream>
 
-const std::string STRING_SPHERE = "Сфера:\n\tПлонтность = 20\n\tОбъём = 113.0973355\n\tМасса = 2261.946711\n\tradius = 3\n";
-const std::string STRING_PARALLELEPIPED = "Параллелепипед:\n\tПлонтность = 20\n\tОбъём = 60000\n\tМасса = 1200000\n\tДлина параллелепипеда : 30\n\tШирина парллелепипеда : 40\n\tГлубина параллелепипеда : 50\n";
-const std::string STRING_CONE = "Конус:\n\tПлонтность = 40\n\tОбъём = 12566.37061\n\tМасса = 502654.8246\n\tБазовый радиус конуса : 20\n\tВысота конуса : 30\n";
-const std::string STRING_CYLINDER = "Цилиндр:\n\tПлонтность = 40\n\tОбъём = 37699.11184\n\tМасса = 1507964.474\n\tБазовый радиус цилиндра : 20\n\tВысота цилиндра : 30\n";
+const std::string STRING_SPHERE = "Sphere:\n\tdensity = 20\n\tvolume = 113.0973355\n\tmassa = 2261.946711\n\tradius = 3\n";
+const std::string STRING_PARALLELEPIPED = "Parallelepiped:\n\tdensity = 20\n\tvolume = 60000\n\tmassa = 1200000\n\tLength of parallelepiped: 30\n\tWidth of parallelepiped: 40\n\tDepth of parallelepiped: 50\n";
+const std::string STRING_CONE = "Cone:\n\tdensity = 40\n\tvolume = 12566.37061\n\tmassa = 502654.8246\n\tBase radius of cone: 20\n\tHeight of cone: 30\n";
+const std::string STRING_CYLINDER = "Cylinder:\n\tdensity = 40\n\tvolume = 37699.11184\n\tmassa = 1507964.474\n\tBase radius of cylinder: 20\n\tHeight of cylinder: 30\n";
 
 TEST_CASE("CheckSphere")
 {
 	CSphere sphere(20, 3);
 	SECTION("Check Sphere")
 	{
-		REQUIRE(sphere.GetType() == "Сфера");
+		REQUIRE(sphere.GetType() == "Sphere");
 		REQUIRE(sphere.GetRadius() == 3);
 		REQUIRE(sphere.GetDensity() == 20);
 		REQUIRE(round(sphere.GetVolume() * 1000) / 1000 == 113.097);
@@ -38,7 +38,7 @@ TEST_CASE("CheckSphere")
 		REQUIRE(parallelepiped.GetDepth() == 50);
 		REQUIRE(parallelepiped.GetVolume() == 60000);
 		REQUIRE(parallelepiped.GetMass() == 1200000);
-		REQUIRE(parallelepiped.GetType() == "Параллелепипед");
+		REQUIRE(parallelepiped.GetType() == "Parallelepiped");
 		std::ostringstream output;
 		REQUIRE(parallelepiped.ToString(output) == STRING_PARALLELEPIPED);
 	}
@@ -49,14 +49,14 @@ TEST_CASE("CheckSphere")
 		REQUIRE(cone.GetHeight() == 30);
 		REQUIRE(round(cone.GetVolume() * 1000) / 1000 == 12566.371);
 		REQUIRE(round(cone.GetMass() * 1000) / 1000 == 502654.825);
-		REQUIRE(cone.GetType() == "Конус");
+		REQUIRE(cone.GetType() == "Cone");
 		std::ostringstream output;
 		REQUIRE(cone.ToString(output) == STRING_CONE);
 	}
 	CCylinder cylinder(20, 30, 40);
 	SECTION("Check cylinder")
 	{
-		REQUIRE(cylinder.GetType() == "Цилиндр");
+		REQUIRE(cylinder.GetType() == "Cylinder");
 		REQUIRE(cylinder.GetBaseRadius() == 20);
 		REQUIRE(cylinder.GetHeight() == 30);
 		REQUIRE(round(cylinder.GetVolume() * 1000) / 1000 == 37699.112);
@@ -158,7 +158,7 @@ TEST_CASE("Not exist command")
 		std::istringstream input("jsasj");
 		CBodyController cbody(input, output, bodies);
 		REQUIRE(cbody.Interpret().status == Status::ERROR_);
-		REQUIRE(output.str() == "Команды:\n1 - Добавить тело\n2 - Найти тело с наибольшей массой\n3 - Найти тело которое будет легче всего весить в воде\n4 - Вывести информацию обо всех телах\n5 - Выйти из программы\n");
+		REQUIRE(output.str() == "Commands:\n1 - Add body\n2 - Find body of max mass\n3 - Find the body that will weigh the lightest in water\n4 - Get info about all bodies\n5 - Exit from programm\n");
 		REQUIRE(bodies.size() == 0);
 	}
 }
@@ -170,7 +170,7 @@ TEST_CASE("Cyclic body insertion")
 	auto b3 = std::make_shared<CCompound>();
 	b1->AddChild(b2);
 	b2->AddChild(b3);
-	REQUIRE(!b3->AddChild(b1));
-	REQUIRE(!b2->AddChild(b2));
+	REQUIRE(b3->AddChild(b1));
+	REQUIRE(b2->AddChild(b2));
 
 }

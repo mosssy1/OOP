@@ -13,7 +13,7 @@ double CSphere::GetRadius() const
 
 std::string CSphere::GetType() const
 {
-	return "Сфера";
+	return "Sphere";
 }
 
 CSphere::~CSphere()

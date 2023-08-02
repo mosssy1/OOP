@@ -13,9 +13,9 @@ std::string CBody::ToString(std::ostringstream& strm) const
 {
 	strm << GetType() << ":" << std::endl
 		 << std::setprecision(10) 
-		 << "\tÏëîíòíîñòü = " << GetDensity() << std::endl
-		 << "\tÎáú¸ì = " << GetVolume() << std::endl
-		 << "\tÌàññà = " << GetMass() << std::endl;
+		 << "\tdensity = " << GetDensity() << std::endl
+		 << "\tvolume = " << GetVolume() << std::endl
+		 << "\tmassa = " << GetMass() << std::endl;
 	AppendProperties(strm);
 	return strm.str();
 }

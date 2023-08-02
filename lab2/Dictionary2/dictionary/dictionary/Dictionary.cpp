@@ -6,13 +6,12 @@
 #include <algorithm>
 #include "DictionaryProcessor.h"
 
-using namespace std;
 
 
-void StartConsole(Dictionary& dictionary, string fileName)
+void StartConsole(Dictionary& dictionary, std::string fileName)
 {
-    string input;
-    while (getline(cin, input))
+    std::string input;
+    while (std::getline(std::cin, input))
     {
         if (input == "...")
         {
@@ -22,13 +21,13 @@ void StartConsole(Dictionary& dictionary, string fileName)
         input = StringToLower(input);
         if (dictionary.find(input) != dictionary.end())
         {
-            cout << dictionary[input] << endl;
+            std::cout << dictionary[input] << std::endl;
         }
         else
         {
-            cout << "Unknown word. Enter translation:" << endl;
-            string translation;
-            getline(cin, translation);
+            std::cout << "Unknown word. Enter translation:" << std::endl;
+            std::string translation;
+            std::getline(std::cin, translation);
             translation = StringToLower(translation);
             if (!translation.empty())
             {
@@ -36,24 +35,24 @@ void StartConsole(Dictionary& dictionary, string fileName)
             }
             else
             {
-                cout << "The word \"" + input + "\" was ignored." << endl;
+                std::cout << "The word \"" + input + "\" was ignored." << std::endl;
             }
         }
     }
 
     if (!dictionary.empty())
     {
-        cout << "Save dictionary? (y/n)" << endl;
-        string answer;
-        getline(cin, answer);
+        std::cout << "Save dictionary? (y/n)" << std::endl;
+        std::string answer;
+        std::getline(std::cin, answer);
 
         answer = StringToLower(answer);
         if (answer == "y")
         {
             if (fileName.empty())
             {
-                cout << "Enter file name:" << endl;
-                getline(cin, fileName);
+                std::cout << "Enter file name:" << std::endl;
+                std::getline(std::cin, fileName);
             }
             SaveDictionary(dictionary, fileName);
         }
@@ -63,7 +62,7 @@ void StartConsole(Dictionary& dictionary, string fileName)
 int main(int argc, char* argv[])
 {
     Dictionary dictionary;
-    string fileName;
+    std::string fileName;
 
     if (!GetDictionary(argc, argv, dictionary, fileName))
     {

@@ -2,7 +2,6 @@
 #include <string>
 #include <optional>
 
-using namespace std;
 
 int CountBits(int byte)
 {
@@ -17,16 +16,16 @@ int CountBits(int byte)
 
 struct Args
 {
-    string number;
+    std::string number;
 };
 
 std::optional<Args> ParseArgs(int argc, char* argv[])
 {
     if (argc != 2)
     {
-        cout << "Invalid arguments count\n";
-        cout << "Usage calcbits.exe /number/\n";
-        return nullopt;
+        std::cout << "Invalid arguments count\n";
+        std::cout << "Usage calcbits.exe /number/\n";
+        return std::nullopt;
     }
     Args args;
     args.number = argv[1];
@@ -45,12 +44,12 @@ int main(int argc, char* argv[])
     int byte = stoi(args->number);
     if (byte < 0 || byte > 255)
     {
-        cout << "Incorrect input for byte. Valid range: 0-255" << endl;
+        std::cout << "Incorrect input for byte. Valid range: 0-255" << std::endl;
         return 1;
     }
 
     int bitCount = CountBits(byte);
-    cout << bitCount << endl;
+    std::cout << bitCount << std::endl;
 
     return 0;
 }

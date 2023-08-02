@@ -1,24 +1,22 @@
 ﻿#include "CVectorProcessor.h"
 
-using namespace std;
-
 int main()
 {
-	vector<float> inputData;
+	std::vector<float> inputData;
 
-	if (!ParseFloatsToVector(cin, inputData))
+	if (!ParseFloatsToVector(std::cin, inputData))
 	{
-		cout << "Incorrect input data" << endl;
+		std::cout << "Incorrect input data" << std::endl;
 		return 1;
 	}
 
-	if (!MuitiplyByMin(inputData))
+	if (!MultiplyByMin(inputData))
 	{
-		cout << "Something went wrong" << endl;
+		std::cout << "Something went wrong" << std::endl;
 		return 1;
 	}
 
-	std::sort(inputData.begin(), inputData.end());
+	SortVector(inputData);
 
 	PrintVectorOfFloats(inputData);
 

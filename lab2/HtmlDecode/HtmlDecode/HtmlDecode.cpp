@@ -4,21 +4,20 @@
 #include <map>
 #include "HtmlDecodeProcessor.h"
 
-using namespace std;
 
 
-bool HtmlDecode(istream& input, ostream& output)
+bool HtmlDecodeToString(std::istream& input, std::ostream& output)
 {
 	try
 	{
-		string line;
-		while (getline(input, line))
+		std::string line;
+		while (std::getline(input, line))
 		{
-			output << HtmlDecode(line) << endl;
+			output << HtmlDecode(line) << std::endl;
 		}
 		return true;
 	}
-	catch (exception e)
+	catch (std::exception e)
 	{
 		return false;
 	}
@@ -28,14 +27,14 @@ int main(int argc, char* argv[])
 {
 	if (argc != 1)
 	{
-		cout << "Invalid arguments count" << endl;
-		cout << "Use: HtmlDecode.exe" << endl;
+		std::cout << "Invalid arguments count" << std::endl;
+		std::cout << "Use: HtmlDecode.exe" << std::endl;
 		return 1;
 	}
 
-	if (!HtmlDecode(cin, cout))
+	if (!HtmlDecodeToString(std::cin, std::cout))
 	{
-		cout << "Something goes wrong";
+		std::cout << "Something goes wrong";
 		return 1;
 	}
 

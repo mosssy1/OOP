@@ -1,9 +1,8 @@
-#include <string>
+#include "HtmlDecodeProcessor.h"
 #include <map>
 
-using namespace std;
 
-const map<string, char> htmlDicrionary = {
+const std::map<std::string, char> htmlDicrionary = {
 	{ "&quot;", '"' },
 	{ "&apos;", '\'' },
 	{ "&lt;", '<' },
@@ -11,45 +10,37 @@ const map<string, char> htmlDicrionary = {
 	{ "&amp;", '&' }
 };
 
-string HtmlDecode(string const& html)
+
+void CheckSubstring(std::string const& html, unsigned& pos, char& tmpCh)
 {
-	string result;
-	result.reserve(html.size());
-
-	size_t pos = 0;
-	while (pos < html.size())
+	for (auto& infoEntity : htmlDicrionary)
 	{
-		size_t subStrStartPos = html.find("&", pos);
-
-		if (subStrStartPos == string::npos) 
+		if (html.substr(pos, infoEntity.first.length()) == infoEntity.first)
 		{
-			result.append(html.substr(pos));
+			tmpCh = infoEntity.second;
+			pos += infoEntity.first.length() - 1;
 			break;
 		}
+	}
+};
 
-		size_t subStrEndPos = html.find(";", subStrStartPos);
+std::string HtmlDecode(std::string const& html)
+{
+	std::string decodedStr;
 
-		if (subStrEndPos == string::npos) 
+	for (unsigned i = 0; i < html.length(); i++)
+	{
+		if (html[i] == '&')
 		{
-			result.append(html.substr(pos));
-			break;
-		}
-
-		result.append(html.substr(pos, subStrStartPos - pos));
-		string entity = html.substr(subStrStartPos, subStrEndPos - subStrStartPos + 1);
-		auto it = htmlDicrionary.find(entity);
-
-		if (it != htmlDicrionary.end())
-		{
-			result.push_back(it->second);
+			char tmpCh = '&';
+			CheckSubstring(html, i, tmpCh);
+			decodedStr += tmpCh;
 		}
 		else
 		{
-			result.append(entity);
+			decodedStr += html[i];
 		}
-
-		pos = subStrEndPos + 1;
 	}
 
-	return result;
-}
+	return decodedStr;
+};

@@ -28,12 +28,12 @@ double CCylinder::GetVolume() const
 
 std::string CCylinder::GetType() const
 {
-	return "Цилиндр";
+	return "Cylinder";
 }
 
 
 void CCylinder::AppendProperties(std::ostringstream& strm) const
 {
-	strm << "\tБазовый радиус цилиндра: " << GetBaseRadius() << std::endl
-		 << "\tВысота цилиндра: " << GetHeight() << std::endl;
+	strm << "\tBase radius of cylinder: " << GetBaseRadius() << std::endl
+		 << "\tHeight of cylinder: " << GetHeight() << std::endl;
 }
