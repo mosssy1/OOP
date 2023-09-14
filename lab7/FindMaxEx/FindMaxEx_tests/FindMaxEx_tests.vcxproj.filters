@@ -18,9 +18,6 @@
     <ClCompile Include="FindMaxEx_tests.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\FindMaxEx\CFindMaxEx.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\FindMaxEx\CFindMaxEx.h">

@@ -5,7 +5,7 @@ template <typename T>
 struct CMyListNode
 {
 	CMyListNode()
-		: m_data(T())
+		: m_data()
 		, m_next(nullptr)
 		, m_prev(nullptr)
 	{

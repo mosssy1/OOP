@@ -7,6 +7,7 @@ class CMyList
 {
 public:
 	using Iterator = CMyListIterator<T>;
+	using IteratorBase = CMyListIteratorBase<T>;
 	using ConstIterator = CMyListConstIterator<T>;
 
 	using ReverseIterator = std::reverse_iterator<Iterator>;
@@ -90,7 +91,7 @@ public:
 		m_size++;
 	}
 
-	void Erase(Iterator const& position)
+	void Erase(IteratorBase const& position)
 	{
 		if (IsEmpty())
 		{
@@ -113,7 +114,6 @@ public:
 			m_head = m_head->m_next;
 		}
 
-		delete positionPtr;
 		m_size--;
 	}
 

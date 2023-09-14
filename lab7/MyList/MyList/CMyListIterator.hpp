@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CMyListNode.hpp"
 #include <iterator>
@@ -11,135 +11,99 @@ template <typename T>
 class CMyList;
 
 template <typename T>
-class CMyListIterator
+class CMyListIteratorBase
 {
 public:
-	friend class CMyList<T>;
-	friend class CMyListConstIterator<T>;
+    using iterator_category = std::bidirectional_iterator_tag;
+    using difference_type = std::ptrdiff_t;
+    using value_type = T;
+    using pointer = T*;
+    using reference = T&;
 
-	using iterator_category = std::bidirectional_iterator_tag;
-	using difference_type = std::ptrdiff_t;
-	using value_type = T;
-	using pointer = T*;
-	using reference = T&;
+    bool operator!=(const CMyListIteratorBase& other) const
+    {
+        return m_nodePtr != other.m_nodePtr;
+    }
 
-	bool operator!=(CMyListIterator const& other) const
-	{
-		return m_nodePtr != other.m_nodePtr;
-	}
-	bool operator==(CMyListIterator const& other) const
-	{
-		return m_nodePtr == other.m_nodePtr;
-	}
+    bool operator==(const CMyListIteratorBase& other) const
+    {
+        return m_nodePtr == other.m_nodePtr;
+    }
 
-	reference operator*() const
-	{
-		return m_nodePtr->m_data;
-	}
-	pointer operator->() const
-	{
-		return &m_nodePtr->m_data;
-	}
+    reference operator*() const
+    {
+        return m_nodePtr->m_data;
+    }
 
-	CMyListIterator& operator++()
-	{
-		m_nodePtr = m_nodePtr->m_next;
-		return *this;
-	}
-	CMyListIterator& operator--()
-	{
-		m_nodePtr = m_nodePtr->m_prev;
-		return *this;
-	}
+    pointer operator->() const
+    {
+        return &m_nodePtr->m_data;
+    }
 
-	CMyListIterator operator++(int)
-	{
-		CMyListIterator tmp(*this);
-		++(*this);
-		return tmp;
-	}
+    CMyListIteratorBase& operator++()
+    {
+        m_nodePtr = m_nodePtr->m_next;
+        return *this;
+    }
 
-	CMyListIterator operator--(int)
-	{
-		CMyListIterator tmp(*this);
-		--(*this);
-		return tmp;
-	}
+    CMyListIteratorBase& operator--()
+    {
+        m_nodePtr = m_nodePtr->m_prev;
+        return *this;
+    }
 
-	CMyListIterator(CMyListNode<T>* node)
-		: m_nodePtr(node)
-	{
-	}
+    CMyListIteratorBase operator++(int)
+    {
+        CMyListIteratorBase tmp(*this);
+        ++(*this);
+        return tmp;
+    }
 
-private:
-	CMyListNode<T>* m_nodePtr;
+    CMyListIteratorBase operator--(int)
+    {
+        CMyListIteratorBase tmp(*this);
+        --(*this);
+        return tmp;
+    }
+
+public:
+    CMyListNode<T>* m_nodePtr;
+
+    CMyListIteratorBase(CMyListNode<T>* node)
+        : m_nodePtr(node)
+    {
+    }
 };
 
 template <typename T>
-class CMyListConstIterator
+class CMyListIterator : public CMyListIteratorBase<T>
 {
+    friend class CMyList<T>;
+
 public:
-	friend class CMyList<T>;
+    CMyListIterator(CMyListNode<T>* node)
+        : CMyListIteratorBase<T>(node)
+    {
+    }
+};
 
-	using iterator_category = std::bidirectional_iterator_tag;
-	using difference_type = std::ptrdiff_t;
-	using value_type = const T;
-	using pointer = const T*;
-	using reference = const T&;
+template <typename T>
+class CMyListConstIterator : public CMyListIteratorBase<T>
+{
+    friend class CMyList<T>;
 
-	CMyListConstIterator(CMyListNode<T>* node)
-		: m_nodePtr(node)
-	{
-	}
+public:
+    using value_type = const T;
+    using pointer = const T*;
+    using reference = const T&;
 
-	CMyListConstIterator(const class CMyListIterator<T>& other)
-		: CMyListConstIterator(other.m_nodePtr)
-	{
-	}
+    CMyListConstIterator(CMyListNode<T>* node)
+        : CMyListIteratorBase<T>(node)
+    {
+    }
 
-	bool operator!=(CMyListConstIterator const& other) const
-	{
-		return m_nodePtr != other.m_nodePtr;
-	}
-	bool operator==(CMyListConstIterator const& other) const
-	{
-		return m_nodePtr == other.m_nodePtr;
-	}
-
-	reference operator*() const
-	{
-		return m_nodePtr->m_data;
-	}
-
-	pointer operator->() const
-	{
-		return &m_nodePtr->m_data;
-	}
-
-	CMyListConstIterator& operator++()
-	{
-		m_nodePtr = m_nodePtr->m_next;
-		return *this;
-	}
-	CMyListConstIterator& operator--()
-	{
-		m_nodePtr = m_nodePtr->m_prev;
-		return *this;
-	}
-
-	CMyListConstIterator operator++(int)
-	{
-		CMyListConstIterator tmp(*this);
-		++(*this);
-		return tmp;
-	}
-	CMyListConstIterator operator--(int)
-	{
-		CMyListConstIterator tmp(*this);
-		--(*this);
-		return tmp;
-	}
-
-private:
-	CMyListNode<T>* m_nodePtr;
+    CMyListConstIterator(const CMyListIterator<T>& other)
+        : CMyListIteratorBase<T>(other.m_nodePtr)
+    {
+    }
 };
